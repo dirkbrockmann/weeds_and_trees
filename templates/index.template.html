@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{TITLE}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./index.umd.js"></script>
+ 
+</head>
+
+<body class="tw:bg-white tw:dark:bg-black">
+  <article class="tw:font-sans">
+  <center>
+	<section class="tw:px-10 tw:max-w-5xl tw:text-black tw:dark:text-white">
+		<h1 class="tw:font-light tw:text-5xl tw:text-black tw:dark:text-white">{{TITLE}}</h1>
+		<h2 class="tw:font-light tw:text-3xl tw:text-black tw:dark:text-white">{{SUBTITLE}}</h2>
+		<p class="tw:font-light tw:text-2xl tw:text-black tw:dark:text-white">{{DESCRIPTION}}</p>  
+		<div id="{{CONTAINER_ID}}"></div>		
+	</section>
+  </center>
+  </article>
+   <script type="text/javascript"> 
+	   const {{NAMESPACE}}_instance = {{NAMESPACE}}.load('{{NAMESPACE}}_container'); 
+</script>
+</body>
+</html>
+	
+	
+

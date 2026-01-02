@@ -1,0 +1,20 @@
+.agent {
+	fill: black;
+}
+
+.displayPanel {
+  /* Styles for the display panel */
+  display: block;
+}
+
+.controlPanel {
+  /* Styles for the control panel */
+  display: block;
+}
+
+
+@media (prefers-color-scheme: dark) {
+	.agent {
+		fill: white;
+	}
+}
