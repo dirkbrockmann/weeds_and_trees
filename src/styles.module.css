@@ -1,20 +1,44 @@
-.agent {
-	fill: black;
-}
-
 .displayPanel {
   /* Styles for the display panel */
   display: block;
+  line-height: 0;
+  box-sizing: border-box;
 }
 
 .controlPanel {
   /* Styles for the control panel */
   display: block;
+  line-height: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure media children don't introduce baseline descender spacing */
+.displayPanel > canvas,
+.displayPanel > svg,
+.controlPanel > svg,
+.controlPanel > canvas {
+  display: block;
+  box-sizing: border-box;
+}
+
+.trunk, .branch {
+  stroke: #000;
+  stroke-opacity:1;
+  stroke-width: 3px;
+    stroke-linecap: round;
+  
+}
+
+.cartoon {
+ 
 }
 
 
 @media (prefers-color-scheme: dark) {
-	.agent {
-		fill: white;
-	}
+	.trunk, .branch {
+  stroke: white;
+  
+  
+}
+
 }

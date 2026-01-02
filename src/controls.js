@@ -10,23 +10,19 @@ import parameters from "./parameters.js"
 
 import {toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices} from "./utils.js"
 
-
 // defined variables for variables, booleans and choices, extracting the information from parameters.js
 
 const variables = get_variables(parameters);
-const booleans = get_booleans(parameters);
 const choices = get_choices(parameters);
 
 // adding ids and labels to the variables based on names for the variables, see utils.js for the function add_id_label
 
 add_id_label(variables)
-add_id_label(booleans)
 add_id_label(choices)
 
 // making arrays for the three types of parameters
 
 const va = toArray(variables);
-const bo = toArray(booleans);
 const ch = toArray(choices);
 
 // making the slider widgets objects, based on the variables
@@ -40,90 +36,70 @@ const sliders = map(va,
 					.size(cfg.widgets.slider_size)
 		);
 
-// making the toggle widgets objects, based on the switches
-		
-const toggles = map(bo, 
-		v => widgets.toggle()
-					.id(v.id).
-					label(v.label).
-					value(v.default)					
-		);
-
 // making the radio widgets objects, based on the choices
-		
+console.log(ch)
+
 const radios = map(ch, 
 		v => widgets.radio()
-					.choices(v.choices)
+					.choices(map(v.choices,c=>c.name))
 					.id(v.id)
 					.value(v.default)
 					.orientation(cfg.widgets.radio_orientation)
 					.labelposition(cfg.widgets.radio_label_position)
+					.buttonsize(cfg.widgets.radio_button_size)
+					.size(cfg.widgets.radio_size)
+					.shape(cfg.widgets.radio_shape)
 		);
 
 
-// you can remove some of these, if the explorable doesn't have a subset of parameters,
-// e.g. if the explorable doesn't need toggles, you can remove all the toggle stuff
-
-
-// this is handy, because the actual widgets are connected to the associated parameters
-// this is important, if one wants to access the widgets based on parameters.
-		
-add_widget(bo,toggles);
 add_widget(va,sliders);
 add_widget(ch,radios);
 
+const length_sliders = sliders.slice(0,3); // first six sliders are length and angle sliders
+const angle_sliders = sliders.slice(3,6);
+const other_sliders = sliders.slice(6,); // the rest are other parameters
 
-// This is generic for many explorables, the action buttons, play/pause, back and rewind
-// there are some explorables that have different buttons, so one needs to code this here.
 
-const go = widgets.button().actions(["play","pause"])
-const setup = widgets.button().actions(["back"])
-const reset = widgets.button().actions(["rewind"])
+const reset_noise_angle = widgets.button().actions(["rewind"])
+const reset_noise_length = widgets.button().actions(["rewind"])
 
-// all the buttons in an array
-		
-const buttons = [go,setup,reset];
+const buttons = [reset_noise_angle,reset_noise_length];
 
-// here's the important function accessible to the outside, there's flexibility on how
-// to code this. bottomline is that all the widgets get attached to the controls panel,
-// that is provided as an argument. the grid object is also passed, which makes it easier
-// to place the widgets on the grid. The positional stuff here needs to be adapted
-// to the needs of the explorable
-
+// positioning all widgets in the control panel based on the grid defined in index.js
+// and the anchors and sizes defined in config.js
 export default (controls,grid)=>{
 
-	const sl_pos=grid.position(cfg.widgets.slider_anchor.x,range(sliders.length)
-			.map(x=>(cfg.widgets.slider_anchor.y+cfg.widgets.slider_gap*x)));
+	const l_sl_pos = grid.position(cfg.widgets.length_slider_anchor.x,range(length_sliders.length)
+			.map(x=>(cfg.widgets.length_slider_anchor.y+(cfg.widgets.slider_gap)*x)));
 	
-	const tg_pos=grid.position(cfg.widgets.toggle_anchor.x,cfg.widgets.toggle_anchor.y);	
-
+	const a_sl_pos = grid.position(cfg.widgets.angle_slider_anchor.x,range(angle_sliders.length)
+			.map(x=>(cfg.widgets.angle_slider_anchor.y+(cfg.widgets.slider_gap)*x)));
+	
+	const o_sl_pos = grid.position(cfg.widgets.other_slider_anchor.x,range(other_sliders.length)
+			.map(x=>(cfg.widgets.other_slider_anchor.y+(cfg.widgets.slider_gap)*x)));
+	
 	const ra_pos=grid.position(cfg.widgets.radio_anchor.x,cfg.widgets.radio_anchor.y);		
 	
-	sliders.forEach((sl,i) => sl.position(sl_pos[i]));
-	
-
-	toggles[0].position(tg_pos).labelposition(cfg.widgets.toggle_label_pos)
+	length_sliders.forEach((sl,i) => sl.position(l_sl_pos[i]));
+	angle_sliders.forEach((sl,i) => sl.position(a_sl_pos[i]));
+	other_sliders.forEach((sl,i) => sl.position(o_sl_pos[i]));
 
 	radios[0].position(ra_pos)
-		.size(cfg.widgets.radio_size).shape(cfg.widgets.radio_shape)
 	
-	go.position(grid.position(cfg.widgets.playbutton_anchor.x,cfg.widgets.playbutton_anchor.y))
-		.size(cfg.widgets.playbutton_size);
+	reset_noise_angle.position(grid.position(cfg.widgets.reset_noise_angle_button_anchor.x,cfg.widgets.reset_noise_angle_button_anchor.y))
+		.size(cfg.widgets.button_size);
 	
-	reset.position(grid.position(cfg.widgets.backbutton_anchor.x,cfg.widgets.backbutton_anchor.y));
+	reset_noise_length.position(grid.position(cfg.widgets.reset_noise_length_button_anchor.x,cfg.widgets.reset_noise_length_button_anchor.y))
+		.size(cfg.widgets.button_size);
 	
-	setup.position(grid.position(cfg.widgets.resetbutton_anchor.x,cfg.widgets.resetbutton_anchor.y));
-	
-
 	controls.selectAll(null).data(sliders).enter().append(widgets.widget);
-	controls.selectAll(null).data(toggles).enter().append(widgets.widget);
-	controls.selectAll(null).data(buttons).enter().append(widgets.widget);
-	controls.selectAll(null).data(radios).enter().append(widgets.widget)
+	controls.selectAll(null).data(radios).enter().append(widgets.widget);
+	controls.selectAll(null).data(buttons).enter().append(widgets.widget)
 
 }
 
 // here are all the exported objects, all the parameters, their associated widgets and the action buttons
 
-export {sliders,toggles,radios,go,setup,reset,variables,booleans,choices}
+export {sliders,radios,variables,choices,reset_noise_angle,reset_noise_length,buttons};
 
 

@@ -24,4 +24,8 @@ const dist = (a,b) => {
 	return Math.sqrt(dx*dx + dy*dy);
 }
 
-export {toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices,deg2rad,rad2deg,dist}
+const rd1 = () => {return 2*(Math.random()-0.5);}
+const Cos = (angle) => Math.cos(angle*Math.PI/180);
+const Sin = (angle) => Math.sin(angle*Math.PI/180);
+
+export {Cos,Sin,rd1,toArray,add_id_label,add_widget,get_variables,get_booleans,get_choices,deg2rad,rad2deg,dist}

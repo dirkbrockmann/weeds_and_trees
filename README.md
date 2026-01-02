@@ -2,20 +2,20 @@
 [cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 
-# Explorable Title
+# Weeds & Trees
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 
-This is a template for making a complexity explorable. The template can be used to create a new complexity explorable. This template implements the Vicsek Model.
+Natural, Self-Similar Growth Patterns by Simple Rules
 
 The explorable is part of the [**Complexity Explorables Collection**](https://www.complexity-explorables.org). For more information about the system and its behavior consult the explorable
-> [**“Explorable Title” - Explorable Subtitle**](https://www.complexity-explorables.org/explorables/explorable-template)
+> [**“Weeds & Trees” - Lindenmayer Systems**](https://www.complexity-explorables.org/explorables/weeds-and-trees)
 
 ## Usage & Installation
 
 ### Just running the explorable
 
-If you just want to run the explorable you can [**Click here.**](https://raw.githack.com/dirkbrockmann/explorable_template/main/dist/index.html)
+If you just want to run the explorable you can [**Click here.**](https://raw.githack.com/dirkbrockmann/weeds_and_trees/main/dist/index.html)
  
 
 ### Running a local copy
@@ -24,11 +24,11 @@ If you want to run a local copy without having to rely on the nasty internet, th
 is to install it via `npm`:
 
 ```shell
-mkdir explorable_template
-cd explorable_template
+mkdir weeds_and_trees
+cd weeds_and_trees
 npm init -y
-npm install @explorables/explorable_template
-npx http-server node_modules/@explorables/explorable_template/dist/ 
+npm install @explorables/weeds_and_trees
+npx http-server node_modules/@explorables/weeds_and_trees/dist/ 
 ```
 
 ### Embedding the explorable in your site
@@ -46,7 +46,7 @@ like so:
 <html>
 	<head>
 		...
-		<script src="https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.umd.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@explorables/weeds_and_trees/dist/index.umd.js"></script>
 		...
 	</head>
 		...
@@ -57,13 +57,13 @@ like so:
 	</body>
 		...
 	<script type="text/javascript">
-		const explorable_instance = explorable_template.load("explorable_container")
+		const explorable_instance = weeds_and_trees.load("explorable_container")
 	</script>
 		...
 </html>
 ```
 
-The header `<script>` tag loads the bundle, the `<div>` in the document is the container in which the explorable gets anchored when the function `explorable_template("explorable_container")` gets executed at the bottom. This function needs the `<div>` container `id` as an argument. The function returns an instance of the explorable and writes it to `explorable_instance`. That variable contains functions like `halt()`, `reset()` and variables `meta` and `config`.
+The header `<script>` tag loads the bundle, the `<div>` in the document is the container in which the explorable gets anchored when the function `weeds_and_trees("explorable_container")` gets executed at the bottom. This function needs the `<div>` container `id` as an argument. The function returns an instance of the explorable and writes it to `explorable_instance`. That variable contains functions like `halt()`, `reset()` and variables `meta` and `config`.
 	
 If you want to make use of ES modules instead of UMD, here's a way that will work on modern (ES support) and legacy browsers (UMD only).
 
@@ -73,10 +73,10 @@ If you want to make use of ES modules instead of UMD, here's a way that will wor
 	<head>
 		...
 	    <script type="module">
-	  	      import load from 'https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.es.js';
-	  	      const explorable_template = load("explorable_container");
+	  	      import load from 'https://cdn.jsdelivr.net/npm/@explorables/weeds_and_trees/dist/index.es.js';
+	  	      const weeds_and_trees = load("explorable_container");
 	    </script>
-	    <script nomodule src="https://cdn.jsdelivr.net/npm/@explorables/explorable_template/dist/index.umd.js"></script>	  
+	    <script nomodule src="https://cdn.jsdelivr.net/npm/@explorables/weeds_and_trees/dist/index.umd.js"></script>	  
 		...
 	</head>
 		...
@@ -87,7 +87,7 @@ If you want to make use of ES modules instead of UMD, here's a way that will wor
 	</body>
 		...
 	<script nomodule type="text/javascript">
-		const explorable_instance = explorable_template.load("explorable_container")
+		const explorable_instance = weeds_and_trees.load("explorable_container")
 	</script>
 		...
 </html>
@@ -102,13 +102,13 @@ If you want to modify or edit the explorable to make your own version:
 Clone repository:
 
 ```shell
-git clone https://github.com/dirkbrockmann/explorable_template.git
+git clone https://github.com/dirkbrockmann/weeds_and_trees.git
 ```
 
 
 Go to the directory, install, build and show using `npm`:
 
-1. `cd explorable_template`
+1. `cd weeds_and_trees`
 2. `npm install`
 3. `npm run build`
 3. `npm run preview`
