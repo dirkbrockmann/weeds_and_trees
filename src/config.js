@@ -28,5 +28,9 @@ export default {
 		height:200,
 		width:200,
 		anchor:{x:9,y:5}
+	},
+	display:{
+		pen_color: "black",
+		background_color: "white"
 	}
 }
